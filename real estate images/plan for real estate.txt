@@ -1,0 +1,392 @@
+Step 1: Decide the Roles
+
+You have 4 roles.
+
+1. Admin
+Login
+View all sellers
+Approve/reject seller accounts
+Approve/reject property listings
+Delete fake listings
+Manage buyers
+Manage brokers
+
+
+2. Seller
+Register
+Login
+Upload property
+Upload multiple photos
+Edit property
+Delete property
+View status
+Pending
+Approved
+Rejected
+
+Seller cannot make property public until admin approves it.
+
+3. Buyer
+Register/Login
+Search properties
+View property
+Save/Favourite property
+Contact seller
+Send enquiry
+
+
+
+4. Broker
+Register/Login
+Create profile
+Add commission details
+Contact buyers
+Contact sellers
+Help close deals
+
+
+
+
+
+Seller
+   │
+   ▼
+Uploads Property
+   │
+   ▼
+Status = Pending
+   │
+   ▼
+Admin Dashboard
+   │
+ Approve?
+ ┌───────┐
+ │ Yes   │
+ └───┬───┘
+     ▼
+Public Website
+
+OR
+
+Reject
+     ▼
+Seller sees Rejected
+
+
+
+
+
+Step 3: Pages
+Home
+Latest Properties
+Search
+Categories
+Login
+Register
+
+
+
+
+
+Register
+Login
+Dashboard
+
+My Properties
+
+Add Property
+
+Edit Property
+
+Delete Property
+
+Profile
+
+
+
+
+
+Buyer
+Register
+Login
+
+Search
+
+Favourite
+
+Contact Seller
+
+Profile
+Broker
+Login
+
+Dashboard
+
+My Clients
+
+Property Requests
+
+Messages
+
+Profile
+Admin
+Login
+
+Dashboard
+
+Pending Properties
+
+Approved Properties
+
+Rejected Properties
+
+Manage Users
+
+Manage Brokers
+
+Manage Sellers
+
+Reports
+
+Settings
+Step 4: Database
+users
+id
+name
+email
+phone
+password
+role
+status
+created_at
+
+role
+
+admin
+seller
+buyer
+broker
+properties
+id
+seller_id
+title
+description
+price
+area
+location
+city
+state
+property_type
+status
+created_at
+
+status
+
+Pending
+Approved
+Rejected
+Sold
+property_images
+id
+property_id
+image
+
+One property can have many images.
+
+enquiries
+id
+property_id
+buyer_id
+message
+created_at
+favourites
+id
+buyer_id
+property_id
+brokers
+id
+user_id
+experience
+commission
+company
+Step 5: Property Upload
+
+Seller fills
+
+Property Title
+
+Description
+
+Price
+
+Area
+
+Location
+
+City
+
+State
+
+Property Type
+
+Bedrooms
+
+Bathrooms
+
+Parking
+
+Upload Images
+
+Submit
+
+When submitted
+
+Status = Pending
+
+Not visible publicly.
+
+Step 6: Admin Approval
+
+Admin sees
+
+Property Name
+
+Seller Name
+
+Images
+
+Price
+
+Location
+
+Approve
+
+Reject
+
+If approved
+
+status = Approved
+
+Now everyone can see it.
+
+Step 7: Public Website
+
+Buyer only sees
+
+SELECT *
+FROM properties
+WHERE status='Approved';
+
+Pending properties never appear.
+
+Step 8: Folder Structure (PHP)
+real-estate/
+
+│
+
+├── admin/
+
+│     dashboard.php
+│     properties.php
+│     approve.php
+│     reject.php
+
+│
+
+├── seller/
+
+│     dashboard.php
+│     add_property.php
+│     edit_property.php
+│     my_properties.php
+
+│
+
+├── buyer/
+
+│     dashboard.php
+│     favourites.php
+
+│
+
+├── broker/
+
+│     dashboard.php
+
+│
+
+├── uploads/
+
+│      property_images/
+
+│
+
+├── includes/
+
+│      db.php
+│      auth.php
+│      navbar.php
+│      footer.php
+
+│
+
+├── login.php
+
+├── register.php
+
+├── property.php
+
+├── search.php
+
+└── index.php
+Step 9: Technologies
+
+Frontend
+
+HTML
+CSS
+JavaScript
+Bootstrap 5
+
+Backend
+
+PHP
+
+Database
+
+MySQL (XAMPP)
+
+Libraries
+
+PDO/MySQLi
+PHPMailer (email notifications)
+SweetAlert2 (alerts)
+Step 10: Development Order
+
+Build features in this sequence so you don't get overwhelmed:
+
+User Registration/Login (roles: Admin, Seller, Buyer, Broker)
+Role-based dashboards after login.
+Seller uploads property (stored as Pending).
+Admin views pending properties and approves/rejects them.
+Public homepage shows only Approved properties.
+Property details page with image gallery.
+Buyer enquiry and favourites.
+Broker profile and messaging features.
+Search and filters.
+Notifications, reports, and other enhancements.
+Future Features
+
+Once the core site works, you can add:
+
+❤️ Wishlist/Favourites
+📍 Google Maps integration
+📞 WhatsApp contact button
+⭐ Seller ratings
+💬 Live chat
+📧 Email notifications
+🔍 Advanced property filters
+💳 Payment gateway for featured listings
+📊 Admin analytics dashboard
+
+This architecture is scalable and is similar to how real estate platforms like MagicBricks or 99acres organize listings, where properties are submitted, reviewed, and then published. If you're building this as a learning project, this structure will also give you experience with authentication, role-based access, file uploads, database relationships, and approval workflows.
